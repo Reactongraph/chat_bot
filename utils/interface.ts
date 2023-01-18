@@ -27,3 +27,9 @@ export interface ChatFormProps {
   inputValue: any;
   setInputValue: any;
 }
+
+interface ChatDataProps {
+  id: string;
+  message: string;
+  timeStamp: string;
+}
