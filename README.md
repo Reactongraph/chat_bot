@@ -1,38 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Project Setup
 
-## Getting Started
+## Prerequisites
 
-First, run the development server:
+1. Node.js (v16.18.0 or higher)
+2. npm or yarn (8.19.2)
+
+## Installation
+
+- Clone or download the repository
+- Run npm install or yarn to install the dependencies
+- Create a new file called .env.local in the root of the project
+- In .env.local, add the following line: NEXT_PUBLIC_BASE_URL="https://random-word-api.herokuapp.com/word"
+- Run npm run dev or yarn dev to start the development server
+
+## Commands
+
+- Run on development mode
 
 ```bash
-npm run dev
-# or
+# development
 yarn dev
-# or
-pnpm dev
+
+# build
+yarn build
+
+# production mode
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The project uses the NEXT_PUBLIC_BASE_URL environment variable to fetch data from the random word API.
+This variable can be accessed in the code using process.env.NEXT_PUBLIC_BASE_URL.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Deployment
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Run npm run build or yarn build to create a production-ready build. The built files can then be deployed to any hosting service that supports Node.js.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Note
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+.env.local is not version controlled and will be ignored by git.
+Do not store sensitive data in this file.
+NEXT_PUBLIC_BASE_URL is only used client side, it will be exposed to the client and should not contain any sensitive information.
