@@ -22,3 +22,44 @@ export const mutationQuery = (
     headers,
   };
 };
+
+/* dispatch and call bot */
+const callAndPassResponse = (
+  dispatch: any,
+  setChatData: any,
+  inputValue: any,
+  callBotApi: any
+) => {
+  dispatch(
+    setChatData({
+      id: "user",
+      message: inputValue,
+      timeStamp: new Date().toLocaleTimeString(),
+    })
+  );
+  callBotApi();
+};
+
+/* submit handler */
+export const handleFormSubmit = async (
+  e: any,
+  inputValue: string,
+  dispatch: any,
+  setChatData: any,
+  callBotApi: any,
+  setInputValue: any
+) => {
+  e.preventDefault();
+  if (!inputValue) return;
+  const command = inputValue.slice(1);
+  const [commandName, delay, ...message] = command.split(" ");
+  if (commandName === "delay") {
+    const newMessage = message.map((x) => x).join(" ");
+    setTimeout(() => {
+      callAndPassResponse(dispatch, setChatData, newMessage, callBotApi);
+    }, +delay);
+  } else {
+    callAndPassResponse(dispatch, setChatData, inputValue, callBotApi);
+  }
+  setInputValue(() => "");
+};

@@ -8,6 +8,7 @@ import HeadTag from "@/components/headTag";
 import ChatForm from "@/components/chatForm";
 import ListChat from "@/components/listChat";
 import useBotResponse from "@/hooks/useBotResponse";
+import { handleFormSubmit } from "@/utils/helper";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,36 +18,16 @@ const Home: React.FC = () => {
   // handle submit
   const handleSubmit = React.useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (!inputValue) return;
-      const command = inputValue.slice(1);
-      const [commandName, delay, ...message] = command.split(" ");
-      switch (commandName) {
-        case "delay":
-          setTimeout(() => {
-            dispatch(
-              setChatData({
-                id: "user",
-                message: message.map((x) => x).join(" "),
-                timeStamp: new Date().toLocaleTimeString(),
-              })
-            );
-            callBotApi();
-          }, +delay);
-          break;
-        default:
-          dispatch(
-            setChatData({
-              id: "user",
-              message: inputValue,
-              timeStamp: new Date().toLocaleTimeString(),
-            })
-          );
-          callBotApi();
-      }
-      setInputValue(() => "");
+      handleFormSubmit(
+        e,
+        inputValue,
+        dispatch,
+        setChatData,
+        callBotApi,
+        setInputValue
+      );
     },
-    [inputValue, dispatch, callBotApi]
+    [callBotApi, dispatch, inputValue]
   );
   return (
     <>
