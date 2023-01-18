@@ -43,7 +43,9 @@ const ListChat: React.FC = () => {
           </ListItem>
         ))
       ) : (
-        <Typography ml={2}>No Chat Found</Typography>
+        <Typography align="center" variant="h5" ml={2} mt={2}>
+          No Chat Found
+        </Typography>
       )}
     </List>
   );

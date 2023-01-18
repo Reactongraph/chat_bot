@@ -22,7 +22,7 @@
 }
 
 .chatHeading {
-  padding: 25px 16px;
+  padding: 25px 0;
   text-align: center;
   background-color: #232e4c;
   color: aliceblue;
@@ -35,7 +35,8 @@
   background-color: #e4e4e4;
 }
 
-.sendButton {
+.sendButton,
+.sendButton:hover {
   background: #232e4c;
   color: white;
 }

@@ -19,31 +19,8 @@ const Home: React.FC = () => {
   // rtk query
   const [getBotResponse] = useGetBotResponseMutation();
 
-  // handle submit
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!inputValue) return;
-    const command = inputValue.slice(1);
-    const [commandName, delay, ...message] = command.split(" ");
-    if (commandName === "delay") {
-      setTimeout(() => {
-        dispatch(
-          setChatData({
-            id: "a",
-            message: message.join(" "),
-            timeStamp: new Date().toLocaleTimeString(),
-          })
-        );
-      }, +delay);
-    } else {
-      dispatch(
-        setChatData({
-          id: "a",
-          message: inputValue,
-          timeStamp: new Date().toLocaleTimeString(),
-        })
-      );
-    }
+  // api call
+  const callBotApi = React.useCallback(async () => {
     const response: any = await getBotResponse(undefined);
     dispatch(
       setChatData({
@@ -52,8 +29,42 @@ const Home: React.FC = () => {
         timeStamp: new Date().toLocaleTimeString(),
       })
     );
-    setInputValue(() => "");
-  };
+  }, [dispatch, getBotResponse]);
+
+  // handle submit
+  const handleSubmit = React.useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!inputValue) return;
+      const command = inputValue.slice(1);
+      const [commandName, delay, ...message] = command.split(" ");
+
+      switch (commandName) {
+        case "delay":
+          await new Promise((resolve) => setTimeout(resolve, +delay));
+          dispatch(
+            setChatData({
+              id: "a",
+              message: message.map((x) => x).join(" "),
+              timeStamp: new Date().toLocaleTimeString(),
+            })
+          );
+          callBotApi();
+          break;
+        default:
+          dispatch(
+            setChatData({
+              id: "a",
+              message: inputValue,
+              timeStamp: new Date().toLocaleTimeString(),
+            })
+          );
+          callBotApi();
+      }
+      setInputValue(() => "");
+    },
+    [inputValue, dispatch, callBotApi]
+  );
   return (
     <>
       <Head>
