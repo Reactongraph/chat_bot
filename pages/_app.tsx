@@ -1,17 +1,22 @@
-// import '@/styles/globals.css'
+import { FC } from "react";
+import { Provider } from "react-redux";
 import { wrapper } from "@/redux/store";
 import type { AppProps } from "next/app";
+import { lightTheme } from "@/themes/light-theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import { lightTheme } from "@/themes/light-theme";
+import "@/styles/Global.css";
 
-function App({ Component, pageProps }: AppProps) {
+const App: FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+  const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
-    <ThemeProvider theme={lightTheme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={lightTheme}>
+        <CssBaseline />
+        <Component {...props} />
+      </ThemeProvider>
+    </Provider>
   );
-}
+};
 
-export default wrapper.withRedux(App);
+export default App;

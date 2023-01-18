@@ -1,11 +1,8 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
+import { HeadingProps } from "@/utils/interface";
 
-import styles from "../styles/Home.module.css";
-
-interface HeadingProps {
-  title: string;
-}
+import styles from "@/styles/Home.module.css";
 
 const Heading: React.FC<HeadingProps> = (props) => {
   const { title } = props;

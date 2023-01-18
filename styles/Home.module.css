@@ -35,12 +35,6 @@
   background-color: #e4e4e4;
 }
 
-.sendButton,
-.sendButton:hover {
-  background: #232e4c;
-  color: white;
-}
-
 .gridContainer {
   padding: 17px 10px;
 }

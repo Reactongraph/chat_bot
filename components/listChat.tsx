@@ -8,7 +8,6 @@ import styles from "@/styles/Home.module.css";
 const ListChat: React.FC = () => {
   // selector
   const currentChat = useSelector(selectCurrentChat);
-
   React.useEffect(() => {
     const scroll = document.getElementById("scroll");
     if (scroll) {
@@ -19,25 +18,22 @@ const ListChat: React.FC = () => {
     <List className={styles.messageArea} id="scroll">
       {currentChat?.length > 0 ? (
         currentChat?.map((data: any, index: number) => (
-          <ListItem key={data?.message + index}>
+          <ListItem key={`${data.message}-${index}`}>
             <Grid
               container
               className={
-                data?.id === "a" ? styles.rightPanel : styles.leftPanel
+                data?.id === "user" ? styles.rightPanel : styles.leftPanel
               }
             >
               <Grid item xs={12}>
-                <ListItemText
-                  sx={{ textAlign: "left" }}
-                  primary={data?.message}
-                ></ListItemText>
+                <ListItemText primary={data.message} />
               </Grid>
               <Grid item xs={12}>
                 <ListItemText
                   className={styles.chatUser}
-                  sx={{ textAlign: data?.id === "a" ? "right" : "left" }}
-                  primary={data?.timeStamp}
-                ></ListItemText>
+                  sx={{ textAlign: data?.id === "user" ? "right" : "left" }}
+                  primary={data.timeStamp}
+                />
               </Grid>
             </Grid>
           </ListItem>
